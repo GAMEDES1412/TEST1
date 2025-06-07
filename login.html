@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Futuristic UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.hdqwalls.com/download/spacesuit-vaporwave-moon-cgi-ml-1920x1080.jpg') no-repeat center center fixed;
+      background-size: cover;
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .login-container {
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 370px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+      z-index: 1;
+      margin-left: 8vw;
+    }
+    .logo {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.15);
+    }
+    .logo i {
+      color: #fff;
+      font-size: 2rem;
+    }
+    .login-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+      max-width: 270px;
+      margin-left: 0;
+      margin-right: auto;
+      text-align: left;
+      margin-bottom: 0;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.85rem 2.5rem 0.85rem 2.5rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 0.8rem;
+      background: #f7f8fa;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 1px 6px rgba(102,126,234,0.07);
+    }
+    .input-group input:focus {
+      border: 1.5px solid #764ba2;
+      background: #f3eaff;
+      box-shadow: 0 2px 12px rgba(118,75,162,0.13);
+    }
+    .input-group .input-icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #a18cd1;
+      font-size: 1.1rem;
+    }
+    .input-group .toggle-password {
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bdbdbd;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .input-group .toggle-password:hover {
+      color: #764ba2;
+    }
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 0.2rem;
+    }
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .remember-me input[type="checkbox"] {
+      accent-color: #a18cd1;
+      width: 1rem;
+      height: 1rem;
+    }
+    .forgot-link {
+      color: #764ba2;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover {
+      color: #a18cd1;
+      text-decoration: underline;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 0.9rem 0;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.8rem;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.10);
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .login-btn:hover {
+      background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+      box-shadow: 0 4px 16px rgba(102,126,234,0.13);
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.08);
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #bdbdbd;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.95rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e0e0e0;
+      margin: 0 0.7em;
+    }
+    .social-login {
+      display: flex;
+      gap: 0.7rem;
+      width: 100%;
+      justify-content: center;
+    }
+    .social-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.7rem 0;
+      border: 1px solid #e0e0e0;
+      border-radius: 0.7rem;
+      background: #fff;
+      color: #333;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 4px rgba(102,126,234,0.06);
+    }
+    .social-btn:hover {
+      border: 1.5px solid #a18cd1;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.10);
+    }
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+        max-width: 98vw;
+      }
+      .logo {
+        width: 48px;
+        height: 48px;
+      }
+    }
+    .signup-link {
+      margin-top: 1.1rem;
+      text-align: center;
+      font-size: 1rem;
+      color: #666;
+    }
+    .signup-link .signup-anchor {
+      color: #764ba2;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.2em;
+      transition: color 0.2s;
+    }
+    .signup-link .signup-anchor:hover {
+      color: #667eea;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <i class="fas fa-rocket"></i>
+    </div>
+    <div class="login-title">Sign in to Your Account</div>
+    <form id="login-form">
+      <div class="input-group">
+        <span class="input-icon"><i class="fas fa-user"></i></span>
+        <input type="text" placeholder="Username or Email" required autocomplete="username" id="username-field">
+      </div>
+      <div class="input-group">
+        <span class="input-icon"><i class="fas fa-lock"></i></span>
+        <input type="password" placeholder="Password" required autocomplete="current-password" id="password-field">
+        <span class="toggle-password" onclick="togglePassword()"><i class="fas fa-eye" id="toggle-icon"></i></span>
+      </div>
+      <div class="options">
+        <label class="remember-me">
+          <input type="checkbox"> Remember Me
+        </label>
+        <a href="#" class="forgot-link">Forgot Password?</a>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="signup-link">
+      ยังไม่มีบัญชี? <a href="สมัครสมาชิก.html" class="signup-anchor">สมัครสมาชิก</a>
+    </div>
+  </div>
+  <canvas id="sparkle-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:100;"></canvas>
+  <script>
+    function togglePassword() {
+      const passwordField = document.getElementById('password-field');
+      const toggleIcon = document.getElementById('toggle-icon');
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+      }
+    }
+    document.getElementById('username-field').addEventListener('input', function() {
+      this.title = this.value;
+    });
+
+    // Particle sparkle effect (purple trail)
+    const canvas = document.getElementById('sparkle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function randomPurple() {
+      // Soft purple-pink range
+      const purples = [
+        '#a18cd1', '#764ba2', '#667eea', '#b993d6', '#c774e8', '#e0c3fc', '#c471f5'
+      ];
+      return purples[Math.floor(Math.random() * purples.length)];
+    }
+
+    function addParticles(x, y) {
+      for (let i = 0; i < 7; i++) {
+        const angle = Math.random() * 2 * Math.PI;
+        const speed = Math.random() * 1.8 + 0.7;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          radius: Math.random() * 2.2 + 1.2,
+          color: randomPurple()
+        });
+      }
+    }
+
+    document.addEventListener('mousemove', e => {
+      addParticles(e.clientX, e.clientY);
+    });
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 12;
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+        // update
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.96;
+        p.vy *= 0.96;
+        p.alpha -= 0.025 + Math.random() * 0.01;
+        if (p.alpha <= 0.01) particles.splice(i, 1);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // --- Login Logic ---
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('users') || '[]');
+    }
+    function setLoginUser(user) {
+      localStorage.setItem('loginUser', JSON.stringify(user));
+    }
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const usernameOrEmail = document.getElementById('username-field').value.trim();
+      const password = document.getElementById('password-field').value;
+      const users = getUsers();
+      const user = users.find(u => (u.username === usernameOrEmail || u.email === usernameOrEmail) && u.password === password);
+      if (!user) {
+        alert('ชื่อผู้ใช้/อีเมล หรือรหัสผ่านไม่ถูกต้อง หรือยังไม่ได้สมัครสมาชิก');
+        return;
+      }
+      setLoginUser(user);
+      alert('เข้าสู่ระบบสำเร็จ!');
+      window.location.href = 'หน้าเว็ป.html'; // ไปหน้า GAMEDES SHOP
+    });
+  </script>
+</body>
+</html>
